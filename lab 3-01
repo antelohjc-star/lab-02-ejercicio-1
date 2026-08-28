@@ -1,0 +1,29 @@
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    cout << "==============================\n";
+    cout << "         JUAN CARLOS          \n";
+    cout << "  Ingenieria Industrial (2º)  \n";
+    cout << "==============================\n\n";
+
+    cout << "EDAD: 19 anos\n\n";
+
+    cout << "PERFIL:\n";
+    cout << "Estudiante enfocado en gestion de\n";
+    cout << "operaciones y mejora de procesos.\n\n";
+
+    cout << "INTERESES:\n";
+    cout << "- Cadena de Suministro\n";
+    cout << "- Optimizacion de Procesos\n";
+    cout << "- Analisis Cuantitativo\n\n";
+
+    cout << "HABILIDADES:\n";
+    cout << "- Matematicas y Estadistica\n";
+    cout << "- Logica de Programacion\n";
+    cout << "- Trabajo en Equipo\n";
+    cout << "==============================\n";
+
+    return 0;
+}
