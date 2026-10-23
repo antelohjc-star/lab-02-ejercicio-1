@@ -1,0 +1,79 @@
+#include <iostream>
+#include <cmath> // Necesario para usar sqrt
+
+using namespace std;
+
+// Prototipos
+void leerDatos(double &a, double &b, double &c);
+double calcularDelta(double a, double b, double c);
+void calcularR(double a, double b, double delta, double &x1, double &x2);
+void mostrar(double a, double delta, double x1, double x2);
+
+int main() {
+    // Variables al inicio
+    double a = 0;
+    double b = 0;
+    double c = 0;
+    double delta = 0;
+    double x1 = 0;
+    double x2 = 0;
+
+    cout << "=== EJERCICIO 2: ECUACION CUADRATICA ===" << endl;
+
+    leerDatos(a, b, c);
+
+    // Verificamos si 'a' es cero
+    if (a == 0) {
+        cout << "\nLa ecuacion no es cuadratica porque a es 0." << endl;
+    } else {
+        delta = calcularDelta(a, b, c);
+
+        // Solo calculamos raices si delta es mayor o igual a cero
+        if (delta >= 0) {
+            calcularR(a, b, delta, x1, x2);
+        }
+
+        mostrar(a, delta, x1, x2);
+    }
+
+    return 0;
+}
+
+// Funciones
+void leerDatos(double &a, double &b, double &c) {
+    cout << "Ingrese a: ";
+    cin >> a;
+    cout << "Ingrese b: ";
+    cin >> b;
+    cout << "Ingrese c: ";
+    cin >> c;
+}
+
+double calcularDelta(double a, double b, double c) {
+    double resultadoDelta;
+    resultadoDelta = (b * b) - (4 * a * c);
+    return resultadoDelta;
+}
+
+void calcularR(double a, double b, double delta, double &x1, double &x2) {
+    x1 = (-b + sqrt(delta)) / (2 * a);
+    x2 = (-b - sqrt(delta)) / (2 * a);
+}
+
+void mostrar(double a, double delta, double x1, double x2) {
+    cout << "\n--- RESULTADOS ---" << endl;
+    cout << "El discriminante es: " << delta << endl;
+
+    if (delta > 0) {
+        cout << "Tiene dos soluciones diferentes:" << endl;
+        cout << "x1 = " << x1 << endl;
+        cout << "x2 = " << x2 << endl;
+    }
+    else if (delta == 0) {
+        cout << "Tiene una solucion real doble:" << endl;
+        cout << "x1 = x2 = " << x1 << endl;
+    }
+    else {
+        cout << "No tiene soluciones reales (es negativo)." << endl;
+    }
+}
