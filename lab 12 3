@@ -1,0 +1,53 @@
+#include <iostream>
+
+using namespace std;
+
+// Prototipos
+void leerNumero(int &n);
+void separarDigitos(int n, int &u, int &d, int &c, int &m);
+void mostrarDigitos(int u, int d, int c, int m);
+
+int main() {
+    // Declaracion de variables
+    int n = 0;
+    int u = 0;
+    int d = 0;
+    int c = 0;
+    int m = 0;
+
+    cout << "=== EJERCICIO 3: DESCOMPONER NUMERO ===" << endl;
+
+    leerNumero(n);
+    separarDigitos(n, u, d, c, m);
+    mostrarDigitos(u, d, c, m);
+
+    return 0;
+}
+
+// Funciones
+void leerNumero(int &n) {
+    // Un ciclo simple para pedir el numero hasta que sea valido
+    cout << "Ingrese un numero entre 1 y 9999: ";
+    cin >> n;
+    
+    while (n < 1 || n >= 10000) {
+        cout << "Numero incorrecto. Intente de nuevo: ";
+        cin >> n;
+    }
+}
+
+void separarDigitos(int n, int &u, int &d, int &c, int &m) {
+    // Usando division y modulo como explico la profesora
+    m = n / 1000;       // Miles
+    c = (n / 100) % 10; // Centenas
+    d = (n / 10) % 10;  // Decenas
+    u = n % 10;         // Unidades
+}
+
+void mostrarDigitos(int u, int d, int c, int m) {
+    cout << "\n--- DIGITOS SEPARADOS ---" << endl;
+    cout << "Unidades de mil (m): " << m << endl;
+    cout << "Centenas        (c): " << c << endl;
+    cout << "Decenas         (d): " << d << endl;
+    cout << "Unidades        (u): " << u << endl;
+}
