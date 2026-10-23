@@ -1,0 +1,81 @@
+#include <iostream>
+
+using namespace std;
+
+// Prototipos de funciones
+void leerPeso(double &p);
+void calcularCosto(double p, double &c, int &tipoMensaje);
+void mostrarResultado(double p, double c, int tipoMensaje);
+
+int main() {
+    // Declaracion de variables al inicio
+    double peso = 0;
+    double costo = 0;
+    int tipoMensaje = 0; // Para saber que mensaje mostrar
+
+    cout << "=== EJERCICIO 1: COSTO DE ENVIO ===" << endl;
+    
+    // Llamando a las funciones
+    leerPeso(peso);
+    calcularCosto(peso, costo, tipoMensaje);
+    mostrarResultado(peso, costo, tipoMensaje);
+
+    return 0;
+}
+
+// Funciones
+void leerPeso(double &p) {
+    cout << "Ingrese el peso de la carta en gramos: ";
+    cin >> p;
+}
+
+void calcularCosto(double p, double &c, int &tipoMensaje) {
+    // Evaluamos las condiciones paso a paso como las vimos en clase
+    if (p <= 0) {
+        tipoMensaje = 1; // Peso no valido
+    }
+    else if (p > 0 && p < 50) {
+        c = 1.50;
+        tipoMensaje = 0; // Todo bien
+    }
+    else if (p == 50) {
+        tipoMensaje = 2; // Tarifa no definida para 50 g
+    }
+    else if (p > 50 && p <= 100) {
+        c = 4.00;
+        tipoMensaje = 0;
+    }
+    else if (p > 100 && p <= 200) {
+        c = 6.00;
+        tipoMensaje = 0;
+    }
+    else if (p > 200 && p <= 350) {
+        c = 10.50;
+        tipoMensaje = 0;
+    }
+    else if (p > 350 && p <= 500) {
+        c = 15.00;
+        tipoMensaje = 0;
+    }
+    else {
+        tipoMensaje = 3; // No puede enviar como carta
+    }
+}
+
+void mostrarResultado(double p, double c, int tipoMensaje) {
+    cout << "\n--- RESULTADO ---" << endl;
+    
+    if (tipoMensaje == 1) {
+        cout << "Peso no valido" << endl;
+    }
+    else if (tipoMensaje == 2) {
+        cout << "Tarifa no definida para 50 g" << endl;
+    }
+    else if (tipoMensaje == 3) {
+        cout << "NO PUEDE ENVIAR COMO CARTA" << endl;
+    }
+    else {
+        cout << "El peso es: " << p << " g" << endl;
+        cout << "El costo de envio es: Bs " << c << endl;
+    }
+}
