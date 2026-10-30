@@ -1,0 +1,66 @@
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    // Declaramos las variables y el vector con capacidad máxima de 100
+    int n;
+    float notas[100];
+    float suma = 0, promedio = 0;
+    float mayor, menor;
+
+    // 1. Pedir y validar la cantidad de estudiantes (N entre 1 y 100)
+    cout << "Ingrese la cantidad de estudiantes: ";
+    cin >> n;
+
+    while (n < 1 || n > 100) {
+        cout << "Error. Ingrese una cantidad entre 1 y 100: ";
+        cin >> n;
+    }
+
+    // 2. Leer las notas de los estudiantes con validación (entre 0 y 100)
+    for (int i = 0; i < n; i++) {
+        cout << "Nota estudiante " << i + 1 << ": ";
+        cin >> notas[i];
+
+        while (notas[i] < 0 || notas[i] > 100) {
+            cout << "Nota invalida. Ingrese una nota entre 0 y 100: ";
+            cin >> notas[i];
+        }
+    }
+
+    // 3. Mostrar todas las notas registradas
+    cout << "\nNOTAS REGISTRADAS\n";
+    for (int i = 0; i < n; i++) {
+        cout << notas[i] << "   ";
+    }
+    cout << endl;
+
+    // 4. Calcular la suma, nota mayor y nota menor
+    // Inicializamos mayor y menor con el primer elemento del vector
+    mayor = notas[0];
+    menor = notas[0];
+    suma = notas[0];
+
+    for (int i = 1; i < n; i++) {
+        suma = suma + notas[i];
+
+        if (notas[i] > mayor) {
+            mayor = notas[i];
+        }
+
+        if (notas[i] < menor) {
+            menor = notas[i];
+        }
+    }
+
+    // 5. Calcular el promedio
+    promedio = suma / n;
+
+    // 6. Mostrar los resultados finales
+    cout << "Promedio general: " << promedio << endl;
+    cout << "Nota mayor: " << mayor << endl;
+    cout << "Nota menor: " << menor << endl;
+
+    return 0;
+}
