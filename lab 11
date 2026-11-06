@@ -1,0 +1,188 @@
+
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+// Prototipos de funciones
+void registrar(int notas[], int n);
+void mostrar(int notas[], int n);
+float promedio(int notas[], int n);
+void mayorMenor(int notas[], int n, int &mayor, int &menor);
+int contarAprobados(int notas[], int n);
+int buscar(int notas[], int n, int nota);
+void actualizar(int notas[], int n);
+
+int main() {
+    int notas[30];
+    int n;
+    int mayor, menor;
+    int aprobados, reprobados;
+    int notaBuscar;
+    int posicion;
+
+    // Pedir cantidad de estudiantes
+    do {
+        cout << "Cantidad de estudiantes (1-30): ";
+        cin >> n;
+
+        if (n < 1 || n > 30) {
+            cout << "Cantidad no valida. Intente nuevamente." << endl;
+        }
+
+    } while (n < 1 || n > 30);
+
+    // Registrar las notas
+    registrar(notas, n);
+
+    // Mostrar las notas
+    cout << "\n--- NOTAS REGISTRADAS ---" << endl;
+    mostrar(notas, n);
+
+    // Calcular promedio
+    cout << fixed << setprecision(2);
+    cout << "\nPromedio: " << promedio(notas, n) << endl;
+
+    // Obtener mayor y menor
+    mayorMenor(notas, n, mayor, menor);
+
+    cout << "Nota mayor: " << mayor << endl;
+    cout << "Nota menor: " << menor << endl;
+
+    // Contar aprobados y reprobados
+    aprobados = contarAprobados(notas, n);
+    reprobados = n - aprobados;
+
+    cout << "Aprobados: " << aprobados << endl;
+    cout << "Reprobados: " << reprobados << endl;
+
+    // Buscar una nota
+    cout << "\nIngrese la nota que desea buscar: ";
+    cin >> notaBuscar;
+
+    posicion = buscar(notas, n, notaBuscar);
+
+    if (posicion == -1) {
+        cout << "La nota no existe." << endl;
+    } else {
+        cout << "La nota se encuentra en el estudiante "
+             << posicion + 1 << endl;
+    }
+
+    // Actualizar una nota
+    actualizar(notas, n);
+
+    // Mostrar resultados actualizados
+    cout << "\n--- NOTAS ACTUALIZADAS ---" << endl;
+    mostrar(notas, n);
+
+    cout << "\nNuevo promedio: " << promedio(notas, n) << endl;
+
+    return 0;
+}
+
+// Funcion para registrar las notas
+void registrar(int notas[], int n) {
+    for (int i = 0; i < n; i++) {
+        do {
+            cout << "Ingrese la nota del estudiante "
+                 << i + 1 << ": ";
+            cin >> notas[i];
+
+            if (notas[i] < 0 || notas[i] > 100) {
+                cout << "Nota no valida. Debe estar entre 0 y 100."
+                     << endl;
+            }
+
+        } while (notas[i] < 0 || notas[i] > 100);
+    }
+}
+
+// Funcion para mostrar las notas
+void mostrar(int notas[], int n) {
+    for (int i = 0; i < n; i++) {
+        cout << "Estudiante " << i + 1
+             << ": " << notas[i] << endl;
+    }
+}
+
+// Funcion para calcular el promedio
+float promedio(int notas[], int n) {
+    int suma = 0;
+
+    for (int i = 0; i < n; i++) {
+        suma = suma + notas[i];
+    }
+
+    return (float)suma / n;
+}
+
+// Funcion para encontrar la nota mayor y menor
+void mayorMenor(int notas[], int n, int &mayor, int &menor) {
+    mayor = notas[0];
+    menor = notas[0];
+
+    for (int i = 1; i < n; i++) {
+        if (notas[i] > mayor) {
+            mayor = notas[i];
+        }
+
+        if (notas[i] < menor) {
+            menor = notas[i];
+        }
+    }
+}
+
+// Funcion para contar los aprobados
+int contarAprobados(int notas[], int n) {
+    int contador = 0;
+
+    for (int i = 0; i < n; i++) {
+        if (notas[i] >= 51) {
+            contador++;
+        }
+    }
+
+    return contador;
+}
+
+// Funcion para buscar una nota
+int buscar(int notas[], int n, int nota) {
+    for (int i = 0; i < n; i++) {
+        if (notas[i] == nota) {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+// Funcion para actualizar una nota
+void actualizar(int notas[], int n) {
+    int estudiante;
+    int nuevaNota;
+
+    do {
+        cout << "\nIngrese el numero de estudiante que desea modificar: ";
+        cin >> estudiante;
+
+        if (estudiante < 1 || estudiante > n) {
+            cout << "Numero de estudiante no valido." << endl;
+        }
+
+    } while (estudiante < 1 || estudiante > n);
+
+    do {
+        cout << "Ingrese la nueva nota: ";
+        cin >> nuevaNota;
+
+        if (nuevaNota < 0 || nuevaNota > 100) {
+            cout << "Nota no valida. Debe estar entre 0 y 100."
+                 << endl;
+        }
+
+    } while (nuevaNota < 0 || nuevaNota > 100);
+
+    notas[estudiante - 1] = nuevaNota;
+
+    cout << "Nota actualizada correctamente." << endl;
+}
