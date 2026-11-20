@@ -1,0 +1,64 @@
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+// Función con paso por referencia (&) para modificar el texto original.
+// Elimina los espacios innecesarios usando los métodos sugeridos.
+void LimpiarEspacios(string &texto) {
+    // Mientras haya texto y el primer carácter (posición 0) sea un espacio
+    while (texto.length() > 0 && texto.at(0) == ' ') {
+        // Cortamos el texto empezando desde la posición 1 hasta el final
+        texto = texto.substr(1, texto.length() - 1);
+    }
+    
+    // Mientras haya texto y el último carácter sea un espacio
+    while (texto.length() > 0 && texto.at(texto.length() - 1) == ' ') {
+        // Cortamos el texto quitando el último carácter
+        texto = texto.substr(0, texto.length() - 1);
+    }
+}
+
+int main() {
+    vector<string> encuestas;
+    int cantidadPreguntas;
+
+    cout << "Ingrese la cantidad de preguntas: ";
+    cin >> cantidadPreguntas;
+    
+    // Limpiar el buffer del 'cin' antes de usar getline()
+    cin.ignore(); 
+
+    // Bucle para registrar las preguntas según la cantidad ingresada
+    for (int i = 0; i < cantidadPreguntas; i++) {
+        string preguntaTemporal;
+        bool esValida = false;
+
+        // Repetir hasta que el usuario ingrese una pregunta válida
+        do {
+            cout << "Pregunta " << i + 1 << ": ";
+            getline(cin, preguntaTemporal);
+
+            // Llamamos a la función por referencia para limpiar los espacios
+            LimpiarEspacios(preguntaTemporal);
+
+            // Validamos que la pregunta no haya quedado vacía
+            if (preguntaTemporal.length() > 0) {
+                esValida = true;
+                encuestas.push_back(preguntaTemporal); // Guardar en el vector
+            } else {
+                cout << "Error: La pregunta no puede estar vacia. Intente de nuevo.\n";
+            }
+            
+        } while (esValida == false);
+    }
+
+    // Mostrar las preguntas registradas
+    cout << "\n===== PREGUNTAS REGISTRADAS =====" << endl;
+    for (int i = 0; i < encuestas.size(); i++) {
+        cout << i + 1 << ". " << encuestas[i] << endl;
+    }
+
+    return 0;
+}
