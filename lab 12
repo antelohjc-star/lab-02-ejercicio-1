@@ -1,0 +1,27 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+// Función que recibe dos strings normales
+int BuscarSubCadena(string a, string b) {
+    // La función find() busca la subcadena y devuelve su posición.
+    // Si la guardamos en un 'int', devuelve -1 si no la encuentra.
+    int posicion = b.find(a);
+    
+    if (posicion != -1) {
+        return posicion; 
+    } else {
+        return -1;
+    }
+}
+
+int main() {
+    string a = "oool";
+    string b = "hooola";
+    
+    cout << "Entrada: BuscarSubCadena(\"" << a << "\", \"" << b << "\")" << endl;
+    cout << "Salida: " << BuscarSubCadena(a, b) << endl;
+    
+    return 0;
+}
