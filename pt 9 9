@@ -1,0 +1,95 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+int buscarExacto(string productos[], string marcas[], int total, string nombre, string marca);
+void corregirNombre(string productos[], string marcas[], int total);
+void agregarPrefijo(string productos[], string marcas[], int total);
+void quitarPrefijo(string productos[], string marcas[], int total);
+
+int main() {
+    string productos[20] = {"Laptoo", "Monitor", "Mouse"};
+    string marcas[20] = {"Lenovo", "Samsung", "Logitech"};
+    int total = 3;
+    int opcion;
+
+    cout << "1. Reemplazar fragmento" << endl;
+    cout << "2. Agregar prefijo PRO-" << endl;
+    cout << "3. Quitar prefijo PRO-" << endl;
+    cout << "Elige una opcion: ";
+    cin >> opcion;
+    cin.ignore();
+
+    if (opcion == 1) corregirNombre(productos, marcas, total);
+    else if (opcion == 2) agregarPrefijo(productos, marcas, total);
+    else if (opcion == 3) quitarPrefijo(productos, marcas, total);
+    else cout << "Opcion invalida." << endl;
+
+    return 0;
+}
+
+int buscarExacto(string productos[], string marcas[], int total, string nombre, string marca) {
+    for (int i = 0; i < total; i++) {
+        if (productos[i].compare(nombre) == 0 && marcas[i].compare(marca) == 0) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+void corregirNombre(string productos[], string marcas[], int total) {
+    string nombre, marca, viejo, nuevo;
+    cout << "Nombre exacto: "; getline(cin, nombre);
+    cout << "Marca exacta: "; getline(cin, marca);
+
+    int idx = buscarExacto(productos, marcas, total, nombre, marca);
+    if (idx == -1) { cout << "No encontrado." << endl; return; }
+
+    cout << "Fragmento a reemplazar: "; getline(cin, viejo);
+    size_t pos = productos[idx].find(viejo);
+
+    if (viejo.empty() || pos == string::npos) {
+        cout << "Fragmento no encontrado." << endl;
+        return;
+    }
+
+    cout << "Nuevo fragmento: "; getline(cin, nuevo);
+    string antes = productos[idx];
+    productos[idx].replace(pos, viejo.length(), nuevo);
+    cout << "Antes: " << antes << " -> Despues: " << productos[idx] << endl;
+}
+
+void agregarPrefijo(string productos[], string marcas[], int total) {
+    string nombre, marca;
+    cout << "Nombre exacto: "; getline(cin, nombre);
+    cout << "Marca exacta: "; getline(cin, marca);
+
+    int idx = buscarExacto(productos, marcas, total, nombre, marca);
+    if (idx == -1) { cout << "No encontrado." << endl; return; }
+
+    if (productos[idx].find("PRO-") == 0) {
+        cout << "Ya tiene el prefijo PRO-." << endl;
+        return;
+    }
+
+    string antes = productos[idx];
+    productos[idx].insert(0, "PRO-");
+    cout << "Antes: " << antes << " -> Despues: " << productos[idx] << endl;
+}
+
+void quitarPrefijo(string productos[], string marcas[], int total) {
+    string nombre, marca;
+    cout << "Nombre exacto: "; getline(cin, nombre);
+    cout << "Marca exacta: "; getline(cin, marca);
+
+    int idx = buscarExacto(productos, marcas, total, nombre, marca);
+    if (idx == -1) { cout << "No encontrado." << endl; return; }
+
+    if (productos[idx].length() >= 4 && productos[idx].find("PRO-") == 0) {
+        string antes = productos[idx];
+        productos[idx].erase(0, 4);
+        cout << "Antes: " << antes << " -> Despues: " << productos[idx] << endl;
+    } else {
+        cout << "No tiene el prefijo PRO-." << endl;
+    }
+}
