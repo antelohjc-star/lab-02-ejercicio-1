@@ -1,0 +1,73 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+void registrarProductos(string productos[], string marcas[], int cantidades[], int &total);
+void mostrarProductos(string productos[], string marcas[], int cantidades[], int total);
+
+int main() {
+    string productos[20];
+    string marcas[20];
+    int cantidades[20];
+    int total = 0;
+
+    registrarProductos(productos, marcas, cantidades, total);
+    mostrarProductos(productos, marcas, cantidades, total);
+
+    return 0;
+}
+
+void registrarProductos(string productos[], string marcas[], int cantidades[], int &total) {
+    int cuantos;
+    do {
+        cout << "Cuantos productos deseas registrar (1 a 20)? ";
+        cin >> cuantos;
+        cin.ignore();
+    } while (cuantos < 1 || cuantos > 20);
+
+    for (int i = 0; i < cuantos; i++) {
+        string nom, mar;
+        int cant;
+        cout << "\nProducto #" << (i + 1) << endl;
+
+        do {
+            cout << "Nombre (min 3 letras): ";
+            getline(cin, nom);
+        } while (nom.empty() || nom.length() < 3);
+
+        do {
+            cout << "Marca (min 3 letras): ";
+            getline(cin, mar);
+        } while (mar.empty() || mar.length() < 3);
+
+        do {
+            cout << "Stock (>= 0): ";
+            cin >> cant;
+            cin.ignore();
+        } while (cant < 0);
+
+        // Revisar si ya existe el mismo nombre y marca
+        bool repetido = false;
+        for (int j = 0; j < total; j++) {
+            if (productos[j].compare(nom) == 0 && marcas[j].compare(mar) == 0) {
+                repetido = true;
+            }
+        }
+
+        if (repetido) {
+            cout << "Error: ese producto con esa marca ya existe." << endl;
+        } else {
+            productos[total] = nom;
+            marcas[total] = mar;
+            cantidades[total] = cant;
+            total++;
+        }
+    }
+}
+
+void mostrarProductos(string productos[], string marcas[], int cantidades[], int total) {
+    cout << "\n--- LISTADO ---" << endl;
+    for (int i = 0; i < total; i++) {
+        cout << "[" << i << "] " << productos[i] << " | " << marcas[i] << " | Stock: " << cantidades[i] << endl;
+    }
+}
