@@ -1,0 +1,53 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+int buscarExacto(string productos[], string marcas[], int total, string nombre, string marca);
+void registrarVenta(string productos[], string marcas[], int cantidades[], int total);
+
+int main() {
+    string productos[20] = {"Laptop", "Monitor", "Mouse"};
+    string marcas[20] = {"Lenovo", "Samsung", "Logitech"};
+    int cantidades[20] = {15, 5, 20};
+    int total = 3;
+
+    registrarVenta(productos, marcas, cantidades, total);
+
+    return 0;
+}
+
+int buscarExacto(string productos[], string marcas[], int total, string nombre, string marca) {
+    for (int i = 0; i < total; i++) {
+        if (productos[i].compare(nombre) == 0 && marcas[i].compare(marca) == 0) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+void registrarVenta(string productos[], string marcas[], int cantidades[], int total) {
+    string nombre, marca;
+    cout << "Nombre exacto: ";
+    getline(cin, nombre);
+    cout << "Marca exacta: ";
+    getline(cin, marca);
+
+    int pos = buscarExacto(productos, marcas, total, nombre, marca);
+    if (pos == -1) {
+        cout << "Producto no encontrado." << endl;
+        return;
+    }
+
+    int vender;
+    cout << "Stock disponible: " << cantidades[pos] << endl;
+    cout << "Unidades a vender: ";
+    cin >> vender;
+
+    if (vender <= 0 || vender > cantidades[pos]) {
+        cout << "Error: cantidad invalida. No se modifico el stock." << endl;
+        return;
+    }
+
+    cantidades[pos] = cantidades[pos] - vender;
+    cout << "Venta realizada. Stock restante: " << cantidades[pos] << endl;
+}
