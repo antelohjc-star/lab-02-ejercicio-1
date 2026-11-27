@@ -1,0 +1,36 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+void buscarPorMarca(string productos[], string marcas[], int cantidades[], int total);
+
+int main() {
+    string productos[20] = {"Laptop", "Monitor", "Mouse", "Teclado"};
+    string marcas[20] = {"Lenovo", "Samsung", "Logitech", "Logitech"};
+    int cantidades[20] = {10, 5, 20, 8};
+    int total = 4;
+
+    buscarPorMarca(productos, marcas, cantidades, total);
+
+    return 0;
+}
+
+void buscarPorMarca(string productos[], string marcas[], int cantidades[], int total) {
+    string marcaBuscada;
+    cout << "Ingresa la marca exacta: ";
+    getline(cin, marcaBuscada);
+
+    int coincidencias = 0;
+    for (int i = 0; i < total; i++) {
+        if (marcas[i].compare(marcaBuscada) == 0) {
+            cout << "- " << productos[i] << " | Stock: " << cantidades[i] << endl;
+            coincidencias++;
+        }
+    }
+
+    if (coincidencias == 0) {
+        cout << "La marca no existe en el inventario." << endl;
+    } else {
+        cout << "Total de coincidencias: " << coincidencias << endl;
+    }
+}
