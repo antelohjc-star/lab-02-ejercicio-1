@@ -1,0 +1,39 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+string generarCodigo(string nombre);
+void mostrarStockBajo(string productos[], string marcas[], int cantidades[], int total);
+
+int main() {
+    string productos[20] = {"Laptop", "Monitor", "Mouse"};
+    string marcas[20] = {"Lenovo", "Samsung", "Logitech"};
+    int cantidades[20] = {10, 5, 3}; // Mouse tiene 3 para probar la alerta
+    int total = 3;
+
+    mostrarStockBajo(productos, marcas, cantidades, total);
+
+    return 0;
+}
+
+string generarCodigo(string nombre) {
+    if (nombre.length() >= 3) {
+        return nombre.substr(0, 3);
+    }
+    return nombre;
+}
+
+void mostrarStockBajo(string productos[], string marcas[], int cantidades[], int total) {
+    int contador = 0;
+    cout << "--- ALERTAS DE STOCK BAJO (< 5) ---" << endl;
+
+    for (int i = 0; i < total; i++) {
+        if (cantidades[i] < 5) {
+            cout << "ALERTA | Codigo: " << generarCodigo(productos[i])
+                 << " | " << productos[i] << " (" << marcas[i] << ") - Stock: " << cantidades[i] << endl;
+            contador++;
+        }
+    }
+
+    cout << "Total con stock bajo: " << contador << endl;
+}
