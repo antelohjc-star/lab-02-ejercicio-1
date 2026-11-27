@@ -1,0 +1,54 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+int buscarExacto(string productos[], string marcas[], int total, string nombre, string marca);
+void actualizarStock(string productos[], string marcas[], int cantidades[], int total);
+
+int main() {
+    string productos[20] = {"Laptop", "Monitor", "Mouse"};
+    string marcas[20] = {"Lenovo", "Samsung", "Logitech"};
+    int cantidades[20] = {10, 5, 20};
+    int total = 3;
+
+    actualizarStock(productos, marcas, cantidades, total);
+
+    return 0;
+}
+
+int buscarExacto(string productos[], string marcas[], int total, string nombre, string marca) {
+    for (int i = 0; i < total; i++) {
+        if (productos[i].compare(nombre) == 0 && marcas[i].compare(marca) == 0) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+void actualizarStock(string productos[], string marcas[], int cantidades[], int total) {
+    string nombre, marca;
+    cout << "Nombre exacto: ";
+    getline(cin, nombre);
+    cout << "Marca exacta: ";
+    getline(cin, marca);
+
+    int pos = buscarExacto(productos, marcas, total, nombre, marca);
+    if (pos == -1) {
+        cout << "Producto no encontrado." << endl;
+        return;
+    }
+
+    int nuevoStock;
+    cout << "Stock actual: " << cantidades[pos] << endl;
+    cout << "Nuevo stock (>= 0): ";
+    cin >> nuevoStock;
+
+    if (nuevoStock < 0) {
+        cout << "Error: el stock no puede ser negativo." << endl;
+        return;
+    }
+
+    int anterior = cantidades[pos];
+    cantidades[pos] = nuevoStock;
+    cout << "Stock anterior: " << anterior << " | Stock nuevo: " << cantidades[pos] << endl;
+}
