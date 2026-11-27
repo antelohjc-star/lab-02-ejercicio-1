@@ -1,0 +1,57 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+void reponerStock(string productos[], string marcas[], int cantidades[], int total);
+
+int main() {
+    string productos[20] = {"Laptop", "Monitor", "Mouse"};
+    string marcas[20] = {"Lenovo", "Samsung", "Logitech"};
+    int cantidades[20] = {10, 5, 20};
+    int total = 3;
+
+    reponerStock(productos, marcas, cantidades, total);
+
+    return 0;
+}
+
+void reponerStock(string productos[], string marcas[], int cantidades[], int total) {
+    string palabra;
+    cout << "Buscar producto a reponer: ";
+    getline(cin, palabra);
+
+    int encontrados = 0;
+    for (int i = 0; i < total; i++) {
+        if (productos[i].find(palabra) != string::npos) {
+            cout << "[" << i << "] " << productos[i] << " (" << marcas[i] << ") - Stock: " << cantidades[i] << endl;
+            encontrados++;
+        }
+    }
+
+    if (encontrados == 0) {
+        cout << "No se encontraron productos." << endl;
+        return;
+    }
+
+    int pos;
+    cout << "Elige el indice del producto: ";
+    cin >> pos;
+
+    if (pos < 0 || pos >= total) {
+        cout << "Indice invalido." << endl;
+        return;
+    }
+
+    int recibidas;
+    cout << "Unidades recibidas (> 0): ";
+    cin >> recibidas;
+
+    if (recibidas <= 0) {
+        cout << "Error: debe ser mayor que cero." << endl;
+        return;
+    }
+
+    int anterior = cantidades[pos];
+    cantidades[pos] = cantidades[pos] + recibidas;
+    cout << "Anterior: " << anterior << " | Recibidas: " << recibidas << " | Total: " << cantidades[pos] << endl;
+}
