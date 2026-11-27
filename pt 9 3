@@ -1,0 +1,34 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+void buscarProductos(string productos[], string marcas[], int cantidades[], int total);
+
+int main() {
+    string productos[20] = {"Laptop", "Monitor", "Mouse"};
+    string marcas[20] = {"Lenovo", "Samsung", "Logitech"};
+    int cantidades[20] = {10, 5, 20};
+    int total = 3;
+
+    buscarProductos(productos, marcas, cantidades, total);
+
+    return 0;
+}
+
+void buscarProductos(string productos[], string marcas[], int cantidades[], int total) {
+    string palabra;
+    cout << "Palabra a buscar: ";
+    getline(cin, palabra);
+
+    int encontrados = 0;
+    for (int i = 0; i < total; i++) {
+        if (productos[i].find(palabra) != string::npos) {
+            cout << "[" << i << "] " << productos[i] << " | Marca: " << marcas[i] << " | Stock: " << cantidades[i] << endl;
+            encontrados++;
+        }
+    }
+
+    if (encontrados == 0) {
+        cout << "No se encontraron resultados." << endl;
+    }
+}
