@@ -1,0 +1,47 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+void registrarProducto(string &nombre, string &marca, int &cantidad);
+void mostrarProducto(string nombre, string marca, int cantidad);
+
+int main() {
+    string nombre, marca;
+    int cantidad;
+
+    registrarProducto(nombre, marca, cantidad);
+    mostrarProducto(nombre, marca, cantidad);
+
+    return 0;
+}
+
+void registrarProducto(string &nombre, string &marca, int &cantidad) {
+    do {
+        cout << "Nombre del producto (min 3 letras): ";
+        getline(cin, nombre);
+        if (nombre.empty() || nombre.length() < 3) {
+            cout << "Error: nombre invalido." << endl;
+        }
+    } while (nombre.empty() || nombre.length() < 3);
+
+    do {
+        cout << "Marca del producto (min 3 letras): ";
+        getline(cin, marca);
+        if (marca.empty() || marca.length() < 3) {
+            cout << "Error: marca invalida." << endl;
+        }
+    } while (marca.empty() || marca.length() < 3);
+
+    do {
+        cout << "Cantidad (>= 0): ";
+        cin >> cantidad;
+        if (cantidad < 0) {
+            cout << "Error: no puede ser negativa." << endl;
+        }
+    } while (cantidad < 0);
+}
+
+void mostrarProducto(string nombre, string marca, int cantidad) {
+    cout << "\n--- PRODUCTO REGISTRADO ---" << endl;
+    cout << "Producto: " << nombre << " | Marca: " << marca << " | Stock: " << cantidad << endl;
+}
